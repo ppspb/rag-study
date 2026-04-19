@@ -1,14 +1,33 @@
-profiles:
-  starter_small:
-    - beir/arguana/test
-    - beir/nfcorpus/test
-    - beir/scifact/test
-  starter_tiny:
-    - nano-beir/arguana
-    - nano-beir/scifact
+base_data_dir: data/beir
+output_dir: outputs
+sample_docs_per_dataset: 1000
+sample_queries_per_dataset: 200
+sample_examples_per_dataset: 5
 
-sampling:
-  max_doc_samples: 2000
-  max_query_samples: 500
-  preview_docs: 3
-  preview_queries: 5
+datasets:
+  - name: scifact
+    split: test
+    enabled: true
+    note: "Очень маленький и удобный стартовый scientific fact-check retrieval dataset."
+
+  - name: nfcorpus
+    split: test
+    enabled: true
+    note: "Компактный biomedical retrieval dataset с более плотными qrels."
+
+  - name: fiqa
+    split: test
+    enabled: true
+    note: "Финансовый retrieval dataset среднего размера."
+
+  - name: arguana
+    split: test
+    enabled: true
+    note: "Аргументативный retrieval dataset; помогает увидеть другую природу релевантности."
+
+# Крупные датасеты для следующего этапа, когда уже будет понятен pipeline:
+#  - trec-covid
+#  - scidocs
+#  - quora
+#  - fever
+#  - climate-fever
