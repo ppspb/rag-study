@@ -1,0 +1,14 @@
+profiles:
+  starter_small:
+    - beir/arguana/test
+    - beir/nfcorpus/test
+    - beir/scifact/test
+  starter_tiny:
+    - nano-beir/arguana
+    - nano-beir/scifact
+
+sampling:
+  max_doc_samples: 2000
+  max_query_samples: 500
+  preview_docs: 3
+  preview_queries: 5

@@ -1,0 +1,88 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rag-learning-workspace"
+version = "0.1.0"
+description = "Evaluation-first RAG learning workspace with Elasticsearch, ir-datasets, and LM Studio API"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "User" }]
+dependencies = [
+  "elasticsearch>=8.18,<9",
+  "ir-datasets>=0.5.11,<0.6",
+  "ir-measures>=0.4.3,<0.5",
+  "openai>=2.12,<3",
+  "httpx>=0.27,<1",
+  "numpy>=1.26,<3",
+  "pandas>=2.2,<3",
+  "orjson>=3.10,<4",
+  "pydantic>=2.7,<3",
+  "PyYAML>=6.0.1,<7",
+  "jsonlines>=4.0,<5",
+  "tqdm>=4.66,<5",
+  "tenacity>=8.2,<10",
+  "typer>=0.12,<1",
+  "rich>=13.7,<15",
+  "python-dotenv>=1.0,<2",
+]
+
+[project.optional-dependencies]
+# For own-corpus ingestion and document parsing later in the course.
+parsing = [
+  "docling>=2.90.0,<3",
+  "beautifulsoup4>=4.12,<5",
+  "lxml>=5.2,<6",
+]
+
+# For LLM-based evaluation later; not needed for the first retrieval passes.
+llm-eval = [
+  "ragas>=0.4.3,<0.5",
+]
+
+# Install only if you explicitly want the BEIR Python package and accept local ML deps.
+# BEIR pulls sentence-transformers, which in practice means local PyTorch/Transformers.
+beir-pkg = [
+  "beir>=2.2.0,<3",
+]
+
+# Install only if you explicitly want Pyserini / Anserini baselines.
+# Pyserini auto-pulls heavy dependencies and requires Java 21.
+pyserini = [
+  "pyserini==2.0.0",
+]
+
+# Optional local neural stack for fully local embeddings/rerankers.
+local-ml = [
+  "sentence-transformers>=5.1,<6",
+  "transformers>=4.46,<5",
+  "torch>=2.6,<3",
+  "onnxruntime>=1.20,<2",
+]
+
+notebooks = [
+  "jupyterlab>=4.2,<5",
+  "matplotlib>=3.9,<4",
+]
+
+dev = [
+  "pytest>=8.2,<9",
+  "ruff>=0.5,<1",
+  "mypy>=1.10,<2",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
